@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import './App.css'
+import Registration from './components/user/register.jsx'
 
 const Home = () => {
   return (
@@ -14,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Registration />} />
         </Routes>
     </BrowserRouter>
   )
