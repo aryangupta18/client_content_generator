@@ -2,20 +2,25 @@ import { useState } from 'react'
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import './App.css'
 import Registration from './components/user/register.jsx'
-
-const Home = () => {
-  return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
-  )
-}
+import Login from './components/user/login.jsx'
+import Dashboard from './components/user/dashboard.jsx'
+import PublicNavbar from './components/navbar/publicNav.jsx'
+import PrivateNavbar from './components/navbar/privateNav.jsx'
+import Home from './components/home/home.jsx'
+import HomeFeatures from './components/home/homeFeatures.jsx'
+import FreeTrial from './components/home/freeTrial.jsx'
 
 function App() {
   return (
     <BrowserRouter>
+      <PublicNavbar />
         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/features" element={<HomeFeatures />} />
+          <Route path="/free-plan" element={<FreeTrial />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
     </BrowserRouter>
   )
