@@ -9,11 +9,14 @@ import PrivateNavbar from './components/navbar/privateNav.jsx'
 import Home from './components/home/home.jsx'
 import HomeFeatures from './components/home/homeFeatures.jsx'
 import FreeTrial from './components/home/freeTrial.jsx'
+import { useAuth } from './authContext/authContext.jsx'
 
 function App() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <BrowserRouter>
-      <PublicNavbar />
+      {isAuthenticated ? <PrivateNavbar /> : <PublicNavbar />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/features" element={<HomeFeatures />} />

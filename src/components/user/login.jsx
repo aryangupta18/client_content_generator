@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import {useMutation} from "@tanstack/react-query";
 import StatusMessage from "../Alert/StatusMessage";
 import loginUser from "../../api/user/loginAPI.js";
+import {useAuth} from "../../authContext/authContext.jsx";
+import { useEffect } from "react";
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
@@ -15,6 +17,7 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const {isAuthenticated, isSuccess, login} = useAuth();
   const navigate = useNavigate();
   //   Mutation for user login
   const mutation = useMutation({mutationFn: loginUser})
@@ -31,9 +34,18 @@ const Login = () => {
       console.log(values);
       await mutation.mutateAsync(values)
       // Simulate login success and navigate to dashboard
-      navigate("/dashboard");
+      setTimeout(() => {
+        if (isAuthenticated) {
+          navigate("/dashboard");
+        }
+      }, 3000);
     },
   });
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      login();
+    }
+  }, [mutation.isSuccess]);
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">

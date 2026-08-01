@@ -31,7 +31,9 @@ const Registration = () => {
       console.log("Form values:", values);
       // Wait for the registration request to finish before redirecting.
       await mutation.mutateAsync(values)
-      navigate("/login"); // Redirect user to login page
+      setTimeout(() => {
+          navigate("/login");
+      }, 3000);
     },
   });
 
