@@ -1,6 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import getUser from "../../api/profile/getUser";
+import StatusMessage from "../Alert/StatusMessage";
+
 
 const Dashboard = () => {
+  const {isLoading, isError, error, data} = useQuery({
+    queryFn: getUser,
+    queryKey: ["profile"]
+  })
+  if(isLoading) return <StatusMessage type="loading" message="Loading user data..." />
+  else if(isError)
+    return <StatusMessage type="error" message={error?.response?.data?.message || error?.message} />
+  
   return (
     <div className="mx-auto p-4 bg-gray-900 w-screen">
       <h1 className="text-3xl font-bold text-center mb-8 text-blue-600">
@@ -23,7 +35,7 @@ const Dashboard = () => {
                 className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
                 id="username"
               >
-                Example Name
+                {data?.foundUser?.username || "example name"}
               </p>
             </div>
             <div className="mb-4">
@@ -37,14 +49,14 @@ const Dashboard = () => {
                 className="border rounded w-full py-2 px-3 text-gray-700 leading-tight"
                 id="email"
               >
-                example@email.com
+                {data?.foundUser?.email || "example email"}
               </p>
             </div>
           </div>
         </div>
 
         {/* Credit Usage Section */}
-        <div className="mb-6 bg-white p-4 shadow rounded-lg">
+        {/* <div className="mb-6 bg-white p-4 shadow rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Credit Usage</h2>
           <div>
             <p className="mb-4">Monthly Credit: Example Amount</p>
@@ -52,10 +64,10 @@ const Dashboard = () => {
             <p className="mb-4">Credit Remaining: Example Amount</p>
             <p className="mb-4">Next Billing Date: Example Date</p>
           </div>
-        </div>
+        </div> */}
 
         {/* Payment and Plans Section */}
-        <div className="mb-6 bg-white p-4 shadow rounded-lg">
+        {/* <div className="mb-6 bg-white p-4 shadow rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Payment & Plans</h2>
           <div>
             <p className="mb-4">Current Plan: Example Plan</p>
@@ -66,10 +78,10 @@ const Dashboard = () => {
               Upgrade Plan
             </Link>
           </div>
-        </div>
+        </div> */}
 
         {/* Trial Information Section */}
-        <div className="mb-6 bg-white p-4 shadow rounded-lg">
+        {/* <div className="mb-6 bg-white p-4 shadow rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Trial Information</h2>
           <div>
             <p className="mb-4">Trial Status: Example Status</p>
@@ -81,15 +93,14 @@ const Dashboard = () => {
               Upgrade to Premium
             </Link>
           </div>
-        </div>
+        </div> */}
 
         {/* History Section */}
-        <div className="mb-6 bg-white p-4 shadow rounded-lg col-span-1 md:col-span-2">
+        {/* <div className="mb-6 bg-white p-4 shadow rounded-lg col-span-1 md:col-span-2">
           <h2 className="text-2xl font-bold text-gray-800 mb-5">
             Payment History
           </h2>
           <ul className="divide-y divide-gray-200">
-            {/* Example History Item */}
             <li className="py-4 hover:bg-gray-50 transition duration-150 ease-in-out">
               <div className="flex flex-col sm:flex-row justify-between">
                 <div className="mb-2 sm:mb-0">
@@ -107,7 +118,7 @@ const Dashboard = () => {
               </div>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

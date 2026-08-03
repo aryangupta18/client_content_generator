@@ -9,7 +9,10 @@ import PrivateNavbar from './components/navbar/privateNav.jsx'
 import Home from './components/home/home.jsx'
 import HomeFeatures from './components/home/homeFeatures.jsx'
 import FreeTrial from './components/home/freeTrial.jsx'
-import { useAuth } from './authContext/authContext.jsx'
+import { useAuth } from './authContext/AuthContext.jsx'
+import AuthRoute from './components/authRoute/AuthRoute.jsx';
+import ContentGen from './components/content/genContent.jsx';
+
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -23,7 +26,16 @@ function App() {
           <Route path="/free-plan" element={<FreeTrial />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={
+            <AuthRoute>
+              <Dashboard />
+            </AuthRoute>
+          } />
+          <Route path="/content" element={
+            <AuthRoute>
+              <ContentGen />
+            </AuthRoute>
+          } />
         </Routes>
     </BrowserRouter>
   )

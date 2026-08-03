@@ -4,10 +4,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { FiLogOut } from "react-icons/fi";
 import { FaCreativeCommonsShare } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import logoutUser from "../../api/user/logoutAPI.js";
-import { useAuth } from "../../authContext/authContext.jsx";
+import { useAuth } from "../../authContext/AuthContext.jsx";
 
 const user = {
   name: "Tom Cook",
@@ -25,7 +25,13 @@ function classNames(...classes) {
 
 export default function PrivateNavbar() {
   const {logout} = useAuth();
-  const mutation = useMutation({mutationFn: logoutUser})
+  const mutation = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: () => {
+      logout();
+      Navigate("/login");
+    }
+  })
   //handle logout
   const handleLogout = () => {
     mutation.mutate();
@@ -77,7 +83,7 @@ export default function PrivateNavbar() {
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <Link
-                    to="/generate-content"
+                    to="/content"
                     className="relative animate-bounce inline-flex items-center gap-x-1.5 rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >
                     <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />

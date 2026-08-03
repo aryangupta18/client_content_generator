@@ -14,8 +14,10 @@ export const AuthProvider = ({children}) => {
     // update isAuthenticated state based on the response from the server
     useEffect(()=>{
         if(isSuccess)
-        setIsAuthenticated(data?.isAuthenticated);
-    },[data, isSuccess])
+            setIsAuthenticated(data?.isAuthenticated);
+        if(isError)
+            setIsAuthenticated(false);
+    },[data, isSuccess, isError])
 
     const login = () => {
         setIsAuthenticated(true);

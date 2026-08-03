@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {useMutation} from "@tanstack/react-query";
 import StatusMessage from "../Alert/StatusMessage";
 import loginUser from "../../api/user/loginAPI.js";
-import {useAuth} from "../../authContext/authContext.jsx";
+import {useAuth} from "../../authContext/AuthContext.jsx";
 import { useEffect } from "react";
 
 // Validation schema using Yup
@@ -20,7 +20,13 @@ const Login = () => {
   const {isAuthenticated, isSuccess, login} = useAuth();
   const navigate = useNavigate();
   //   Mutation for user login
-  const mutation = useMutation({mutationFn: loginUser})
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
+        login();
+        navigate("/dashboard");
+    },
+});
   const errorMessage = mutation.error?.response?.data?.message || mutation.error?.message;
   // Formik setup for form handling
   const formik = useFormik({
@@ -30,15 +36,11 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      // Here, you would typically handle form submission
-      console.log(values);
       await mutation.mutateAsync(values)
       // Simulate login success and navigate to dashboard
-      setTimeout(() => {
         if (isAuthenticated) {
           navigate("/dashboard");
         }
-      }, 3000);
     },
   });
   useEffect(() => {
