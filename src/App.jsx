@@ -12,6 +12,7 @@ import FreeTrial from './components/home/freeTrial.jsx'
 import { useAuth } from './authContext/AuthContext.jsx'
 import AuthRoute from './components/authRoute/AuthRoute.jsx';
 import ContentGen from './components/content/genContent.jsx';
+import ContentHistory from './components/content/history.jsx';
 
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
           <Route path="/content" element={
             <AuthRoute>
               <ContentGen />
+            </AuthRoute>
+          } />
+          <Route path="/content-history" element={
+            <AuthRoute>
+              <ContentHistory />
             </AuthRoute>
           } />
         </Routes>

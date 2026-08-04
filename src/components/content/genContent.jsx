@@ -135,7 +135,7 @@ const ContentGen = () => {
             Generate Content
           </button>
           {/* Link to view history */}
-          <Link to="/history">View history</Link>
+          <Link to="/content-history">View history</Link>
         </form>
 
         {/* Display generated content */}
